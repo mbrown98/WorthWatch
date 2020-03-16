@@ -12,6 +12,6 @@ const port = 3000;
 
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
-// app.use("/api/", router);
+app.use("/crypto", router);
 
 app.listen(port, () => console.log(`Crypto-App ${port}!`));
