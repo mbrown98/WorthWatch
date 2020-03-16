@@ -1,30 +1,46 @@
 import React from "react";
 var Chart = require("chart.js");
+import axios from "axios";
 
 class CryptoChart extends React.Component {
   constructor(props) {
     super(props);
+    this.getPastPrices = this.getPastPrices.bind(this);
   }
   componentDidMount() {
-    const node = this.node;
+    this.getPastPrices();
+  }
 
-    var myChart = new Chart(node, {
-      type: "line",
-      data: {
-        labels: ["Red", "Blue", "Yellow"],
-        datasets: [
-          {
-            label: "Bitcoin Price",
-            data: [12, 19, 3],
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(255, 206, 86, 0.2)"
+  getPastPrices() {
+    axios
+      .get("/crypto/pastPrices")
+      .then(response => {
+        let obj = {};
+        obj.prices = Object.values(response.data.bpi);
+        obj.dates = Object.keys(response.data.bpi);
+        return obj;
+      })
+      .then(response => {
+        const node = this.node;
+
+        var myChart = new Chart(node, {
+          type: "line",
+          data: {
+            labels: response.dates,
+            datasets: [
+              {
+                label: "Bitcoin Price",
+                data: response.prices,
+                backgroundColor: [
+                  "rgba(255, 99, 132, 0.2)",
+                  "rgba(54, 162, 235, 0.2)",
+                  "rgba(255, 206, 86, 0.2)"
+                ]
+              }
             ]
           }
-        ]
-      }
-    });
+        });
+      });
   }
 
   render() {

@@ -5,21 +5,13 @@ import Chart from "./components/Chart.jsx";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { currentPrice: null };
+    this.state = {
+      currentPrice: null
+    };
     this.getCurrentPrices = this.getCurrentPrices.bind(this);
-    this.getPastPrices = this.getPastPrices.bind(this);
   }
   componentDidMount() {
-    this.getPastPrices();
-  }
-
-  getPastPrices() {
-    axios
-      .get("https://api.coindesk.com/v1/bpi/historical/close.json")
-      .then(response => {
-        console.log(response.data);
-        this.setState({ pastPrices: response.data });
-      });
+    this.getCurrentPrices;
   }
 
   getCurrentPrices() {
