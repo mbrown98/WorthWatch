@@ -2,6 +2,7 @@ const router = require("express").Router();
 const controller = require("./controllers");
 
 router.get("/currentPrices", controller.getCurrentPrices);
+router.get("/pastPrices", controller.getPastPrices);
 // router.post("/", controller.createBudget);
 // router.delete("/:id", controller.deleteBudget);
 // router.put("/:id", controller.updateBudget);
