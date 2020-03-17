@@ -1,8 +1,9 @@
 import React from "react";
 import axios from "axios";
-import Chart from "./components/Chart.jsx";
+
 import CurrentPrice from "./components/CurrentPrice.jsx";
 import CurrencySelect from "./components/CurrencySelect.jsx";
+var Chart = require("chart.js");
 
 class App extends React.Component {
   constructor(props) {
@@ -11,13 +12,17 @@ class App extends React.Component {
       USD: null,
       GBP: null,
       EUR: null,
-      currentCurrency: "USD"
+      currentCurrency: "USD",
+      prices: [],
+      dates: []
     };
     this.getCurrentPrices = this.getCurrentPrices.bind(this);
-    this.setCurrency = this.setCurrency.bind(this);
+
+    this.getPastPrices = this.getPastPrices.bind(this);
   }
   componentDidMount() {
     this.getCurrentPrices();
+    this.getPastPrices("USD");
   }
 
   getCurrentPrices() {
@@ -28,22 +33,55 @@ class App extends React.Component {
     });
   }
 
-  setCurrency(val) {
+  getPastPrices(val) {
     this.setState({ currentCurrency: val });
+    axios
+      .get(
+        `https://api.coindesk.com/v1/bpi/historical/close.json?currency=${val}`
+      )
+      .then(response => {
+        let obj = {};
+        obj.prices = Object.values(response.data.bpi);
+        obj.dates = Object.keys(response.data.bpi);
+        return obj;
+      })
+      .then(obj => {
+        const node = this.node;
+        var myChart = new Chart(node, {
+          type: "line",
+          data: {
+            labels: obj.dates,
+            datasets: [
+              {
+                label: "Bitcoin Price",
+                data: obj.prices,
+                backgroundColor: [
+                  "rgba(255, 99, 132, 0.2)",
+                  "rgba(54, 162, 235, 0.2)",
+                  "rgba(255, 206, 86, 0.2)"
+                ]
+              }
+            ]
+          }
+        });
+      });
   }
 
   render() {
     return (
       <div>
         <h1>CryptoTracker</h1>
-        <CurrencySelect setCurrency={this.setCurrency} />
+        <CurrencySelect setCurrency={this.getPastPrices} />
         <CurrentPrice
           USD={this.state.USD}
           GBP={this.state.GBP}
           EUR={this.state.EUR}
           currency={this.state.currentCurrency}
         />
-        <Chart currency={this.state.currentCurrency} />
+        <canvas
+          style={{ width: 800, height: 300 }}
+          ref={node => (this.node = node)}
+        />
         <h5>Powered by CoinDesk</h5>
       </div>
     );
