@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import { ButtonGroup, Button } from "react-bootstrap";
 
 export default class CurrencySelect extends React.Component {
   constructor(props) {
@@ -9,33 +8,31 @@ export default class CurrencySelect extends React.Component {
 
   render() {
     return (
-      <div>
-        <ButtonGroup aria-label="Basic example">
-          <Button
-            variant="secondary"
-            onClick={() => {
-              this.props.setCurrency("USD");
-            }}
-          >
-            USD
-          </Button>
-          <Button
-            variant="secondary"
-            onClick={() => {
-              this.props.setCurrency("GBP");
-            }}
-          >
-            GBP
-          </Button>
-          <Button
-            variant="secondary"
-            onClick={() => {
-              this.props.setCurrency("EUR");
-            }}
-          >
-            EUR
-          </Button>
-        </ButtonGroup>
+      <div className="buttons">
+        <a
+          className="button is-link "
+          onClick={() => {
+            this.props.setCurrency("USD");
+          }}
+        >
+          USD
+        </a>
+        <a
+          className="button is-link "
+          onClick={() => {
+            this.props.setCurrency("GBP");
+          }}
+        >
+          GBP
+        </a>
+        <a
+          className="button is-link"
+          onClick={() => {
+            this.props.setCurrency("EUR");
+          }}
+        >
+          EUR
+        </a>
       </div>
     );
   }

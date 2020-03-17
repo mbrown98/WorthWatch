@@ -16,8 +16,8 @@ class App extends React.Component {
       prices: [],
       dates: []
     };
-    this.getCurrentPrices = this.getCurrentPrices.bind(this);
 
+    this.getCurrentPrices = this.getCurrentPrices.bind(this);
     this.getPastPrices = this.getPastPrices.bind(this);
   }
   componentDidMount() {
@@ -56,9 +56,9 @@ class App extends React.Component {
                 label: "Bitcoin Price",
                 data: obj.prices,
                 backgroundColor: [
-                  "rgba(255, 99, 132, 0.2)",
-                  "rgba(54, 162, 235, 0.2)",
-                  "rgba(255, 206, 86, 0.2)"
+                  "rgba(5, 120, 133333, 0.4)",
+                  "rgba(5, 120, 235, 0.4)",
+                  "rgba(5, 120, 86, 0.4)"
                 ]
               }
             ]
@@ -70,7 +70,21 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>CryptoTracker</h1>
+        <div>
+          {" "}
+          <section class="hero is-link">
+            <div class="hero-body">
+              <div class="container">
+                <h1 class="title">CryptoTracker</h1>
+                <h2 class="subtitle">Powered by CoinDesk</h2>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div>
+          <h1 style={{ fontSize: "20px" }}>{"Select Currency"}</h1>
+        </div>
+
         <CurrencySelect setCurrency={this.getPastPrices} />
         <CurrentPrice
           USD={this.state.USD}
@@ -79,10 +93,9 @@ class App extends React.Component {
           currency={this.state.currentCurrency}
         />
         <canvas
-          style={{ width: 800, height: 300 }}
+          style={{ width: 400, height: 120 }}
           ref={node => (this.node = node)}
         />
-        <h5>Powered by CoinDesk</h5>
       </div>
     );
   }
