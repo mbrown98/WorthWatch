@@ -56,7 +56,7 @@ class App extends React.Component {
                 label: "Bitcoin Price",
                 data: obj.prices,
                 backgroundColor: [
-                  "rgba(5, 120, 133333, 0.4)",
+                  "rgba(0, 0, 0, 0.4)",
                   "rgba(5, 120, 235, 0.4)",
                   "rgba(5, 120, 86, 0.4)"
                 ]
@@ -72,7 +72,7 @@ class App extends React.Component {
       <div>
         <div>
           {" "}
-          <section class="hero is-link">
+          <section class="hero is-black">
             <div class="hero-body">
               <div class="container">
                 <h1 class="title">CryptoTracker</h1>

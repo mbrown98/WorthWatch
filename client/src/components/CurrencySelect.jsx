@@ -10,7 +10,7 @@ export default class CurrencySelect extends React.Component {
     return (
       <div className="buttons">
         <a
-          className="button is-link "
+          className="button is-dark"
           onClick={() => {
             this.props.setCurrency("USD");
           }}
@@ -18,7 +18,7 @@ export default class CurrencySelect extends React.Component {
           USD
         </a>
         <a
-          className="button is-link "
+          className="button is-dark"
           onClick={() => {
             this.props.setCurrency("GBP");
           }}
@@ -26,7 +26,7 @@ export default class CurrencySelect extends React.Component {
           GBP
         </a>
         <a
-          className="button is-link"
+          className="button is-dark"
           onClick={() => {
             this.props.setCurrency("EUR");
           }}
