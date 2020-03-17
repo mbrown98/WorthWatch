@@ -13,7 +13,9 @@ class CryptoChart extends React.Component {
 
   getPastPrices() {
     axios
-      .get("/crypto/pastPrices")
+      .get(
+        `https://api.coindesk.com/v1/bpi/historical/close.json?currency=${this.props.currency}`
+      )
       .then(response => {
         let obj = {};
         obj.prices = Object.values(response.data.bpi);
