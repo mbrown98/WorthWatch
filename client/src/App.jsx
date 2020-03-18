@@ -32,13 +32,14 @@ class App extends React.Component {
     try {
       console.log("current prices run");
       const response = await axios.get(
-        "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,LTC,XRP,BCH&tsyms=USD,EUR,GBP"
+        "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,LTC,XRP,BCH&tsyms=USD,EUR,GBP"
       );
+      console.log(response);
 
       this.setState({
-        USD: response.data.BTC.USD,
-        GBP: response.data.BTC.GBP,
-        EUR: response.data.BTC.EUR
+        USD: response.data.DISPLAY.BTC.USD.PRICE,
+        GBP: response.data.DISPLAY.BTC.GBP.PRICE,
+        EUR: response.data.DISPLAY.BTC.EUR.PRICE
       });
     } catch (e) {
       console.log(e);
@@ -94,24 +95,12 @@ class App extends React.Component {
           </section>
         </div>
         <OtherCurrencies />
-        <div>
-          <h1 style={{ fontSize: "20px" }}>{"Select Currency"}</h1>
-        </div>
 
         <div id="currencyWrapper">
           {" "}
           <div id="first">
             {" "}
             <CurrencySelect setCurrency={this.getPastPrices} />
-          </div>
-          <div id="second">
-            {" "}
-            <CurrentPrice
-              USD={this.state.USD}
-              GBP={this.state.GBP}
-              EUR={this.state.EUR}
-              currency={this.state.currentCurrency}
-            />
           </div>
         </div>
 
