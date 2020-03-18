@@ -25,7 +25,7 @@ class App extends React.Component {
   componentDidMount() {
     this.getCurrentPrices();
     this.getPastPrices("USD");
-    setInterval(this.getCurrentPrices, 5000);
+    setInterval(this.getCurrentPrices, 222000);
   }
 
   async getCurrentPrices() {
@@ -94,7 +94,7 @@ class App extends React.Component {
             </div>
           </section>
         </div>
-        <OtherCurrencies />
+        <OtherCurrencies currentCurrency={this.state.currentCurrency} />
 
         <div id="currencyWrapper">
           {" "}

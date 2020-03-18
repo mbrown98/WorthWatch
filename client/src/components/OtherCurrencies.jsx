@@ -18,18 +18,18 @@ export default class OtherCurrencies extends React.Component {
 
   componentDidMount() {
     this.getOtherCurrencies();
-    setInterval(this.getOtherCurrencies, 5000);
+    setInterval(this.getOtherCurrencies, 1000);
   }
 
   async getOtherCurrencies() {
+    let val = this.props.currentCurrency;
     try {
-      console.log("get others run");
       const response = await axios.get(
-        "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,LTC,XRP,BCH&tsyms=USD,EUR,GBP"
+        `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,LTC,XRP,BCH&tsyms=${val}`
       );
       console.log("response", response);
 
-      let bitcoin = response.data.DISPLAY.BTC.USD;
+      let bitcoin = response.data.DISPLAY.BTC[val];
       let bitcoinArr = [];
       bitcoinArr.push(
         bitcoin.PRICE,
@@ -39,7 +39,7 @@ export default class OtherCurrencies extends React.Component {
         bitcoin.CHANGEPCTHOUR,
         bitcoin.CHANGEPCTDAY
       );
-      let ether = response.data.DISPLAY.ETH.USD;
+      let ether = response.data.DISPLAY.ETH[val];
       let etherArr = [];
       etherArr.push(
         ether.PRICE,
@@ -49,7 +49,7 @@ export default class OtherCurrencies extends React.Component {
         ether.CHANGEPCTHOUR,
         ether.CHANGEPCTDAY
       );
-      let litecoin = response.data.DISPLAY.LTC.USD;
+      let litecoin = response.data.DISPLAY.LTC[val];
       let liteArr = [];
       liteArr.push(
         litecoin.PRICE,
@@ -59,7 +59,7 @@ export default class OtherCurrencies extends React.Component {
         litecoin.CHANGEPCTHOUR,
         litecoin.CHANGEPCTDAY
       );
-      let ripple = response.data.DISPLAY.XRP.USD;
+      let ripple = response.data.DISPLAY.XRP[val];
       let rippleArr = [];
       rippleArr.push(
         ripple.PRICE,
@@ -69,7 +69,7 @@ export default class OtherCurrencies extends React.Component {
         ripple.CHANGEPCTHOUR,
         ripple.CHANGEPCTDAY
       );
-      let cash = response.data.DISPLAY.BCH.USD;
+      let cash = response.data.DISPLAY.BCH[val];
       let cashArr = [];
       cashArr.push(
         cash.PRICE,
