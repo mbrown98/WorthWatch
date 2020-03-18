@@ -10,3 +10,19 @@
   width: 500px;
   overflow: hidden; /* if you don't want #second to wrap below #first */
 }
+
+#page {
+  margin-top: 80px;
+  width: 100%;
+  display: flex;
+}
+
+#notChart {
+  width: 60%;
+  float: left;
+}
+
+#chart {
+  float: left;
+  width: 40%;
+}

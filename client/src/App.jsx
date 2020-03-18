@@ -94,20 +94,24 @@ class App extends React.Component {
             </div>
           </section>
         </div>
-        <OtherCurrencies currentCurrency={this.state.currentCurrency} />
-
-        <div id="currencyWrapper">
+        <div id="page">
           {" "}
-          <div id="first">
+          <div id="notChart">
             {" "}
-            <CurrencySelect setCurrency={this.getPastPrices} />
+            <div id="currencyWrapper">
+              {" "}
+              <div id="first">
+                {" "}
+                <CurrencySelect setCurrency={this.getPastPrices} />
+              </div>
+            </div>
+            <OtherCurrencies currentCurrency={this.state.currentCurrency} />
+          </div>
+          <div id="chart">
+            {" "}
+            <canvas ref={node => (this.node = node)} />
           </div>
         </div>
-
-        <canvas
-          style={{ width: 400, height: 120 }}
-          ref={node => (this.node = node)}
-        />
       </div>
     );
   }
