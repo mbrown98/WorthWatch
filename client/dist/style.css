@@ -1,0 +1,12 @@
+#currencyWrapper {
+  width: 1100px;
+  overflow: hidden; /* will contain if #first is longer than #second */
+}
+#first {
+  width: 250px;
+  float: left; /* add this */
+}
+#second {
+  width: 500px;
+  overflow: hidden; /* if you don't want #second to wrap below #first */
+}

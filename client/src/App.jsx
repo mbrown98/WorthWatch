@@ -4,6 +4,8 @@ import axios from "axios";
 import CurrentPrice from "./components/CurrentPrice.jsx";
 import CurrencySelect from "./components/CurrencySelect.jsx";
 var Chart = require("chart.js");
+import runtime from "regenerator-runtime";
+import OtherCurrencies from "./components/OtherCurrencies";
 
 class App extends React.Component {
   constructor(props) {
@@ -23,14 +25,24 @@ class App extends React.Component {
   componentDidMount() {
     this.getCurrentPrices();
     this.getPastPrices("USD");
+    setInterval(this.getCurrentPrices, 5000);
   }
 
-  getCurrentPrices() {
-    axios.get("/crypto/currentPrices").then(response => {
-      this.setState({ USD: response.data.bpi.USD.rate_float });
-      this.setState({ GBP: response.data.bpi.GBP.rate_float });
-      this.setState({ EUR: response.data.bpi.EUR.rate_float });
-    });
+  async getCurrentPrices() {
+    try {
+      console.log("current prices run");
+      const response = await axios.get(
+        "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,LTC,XRP,BCH&tsyms=USD,EUR,GBP"
+      );
+
+      this.setState({
+        USD: response.data.BTC.USD,
+        GBP: response.data.BTC.GBP,
+        EUR: response.data.BTC.EUR
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   getPastPrices(val) {
@@ -56,9 +68,9 @@ class App extends React.Component {
                 label: "Bitcoin Price",
                 data: obj.prices,
                 backgroundColor: [
-                  "rgba(0, 0, 0, 0.4)",
+                  "rgba(5, 120, 133333, 0.4)",
                   "rgba(5, 120, 235, 0.4)",
-                  "rgba(5, 120, 86, 0.4)"
+                  "rgba(5, 120, 86, 0.2)"
                 ]
               }
             ]
@@ -72,7 +84,7 @@ class App extends React.Component {
       <div>
         <div>
           {" "}
-          <section class="hero is-black">
+          <section class="hero is-link">
             <div class="hero-body">
               <div class="container">
                 <h1 class="title">CryptoTracker</h1>
@@ -81,17 +93,28 @@ class App extends React.Component {
             </div>
           </section>
         </div>
+        <OtherCurrencies />
         <div>
           <h1 style={{ fontSize: "20px" }}>{"Select Currency"}</h1>
         </div>
 
-        <CurrencySelect setCurrency={this.getPastPrices} />
-        <CurrentPrice
-          USD={this.state.USD}
-          GBP={this.state.GBP}
-          EUR={this.state.EUR}
-          currency={this.state.currentCurrency}
-        />
+        <div id="currencyWrapper">
+          {" "}
+          <div id="first">
+            {" "}
+            <CurrencySelect setCurrency={this.getPastPrices} />
+          </div>
+          <div id="second">
+            {" "}
+            <CurrentPrice
+              USD={this.state.USD}
+              GBP={this.state.GBP}
+              EUR={this.state.EUR}
+              currency={this.state.currentCurrency}
+            />
+          </div>
+        </div>
+
         <canvas
           style={{ width: 400, height: 120 }}
           ref={node => (this.node = node)}
