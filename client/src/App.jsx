@@ -103,20 +103,16 @@ class App extends React.Component {
           </section>
         </div>
 
-        <div id="page">
+        <div id="topHalf">
           {" "}
-          <div id="notChart">
+          <div id="notChart" className="box">
             {" "}
             <div id="currencyWrapper">
-              <h1 class="title">Currency Converter</h1>{" "}
-              <div id="first">
-                {" "}
-                {/* <CurrencySelect setCurrency={this.getPastPrices} /> */}
-              </div>
+              <h1 class="title">Currency Converter</h1> <div id="first"> </div>
             </div>
             <OtherCurrencies currentCurrency={this.state.currentCurrency} />
           </div>
-          <div id="chart">
+          <div id="chart" className="box">
             {" "}
             <div>
               {" "}
@@ -124,7 +120,10 @@ class App extends React.Component {
               <DatePicker populateChart={this.populateChart} />
               {/* <DatesGraph chartSwitcher={this.populateChart} /> */}
             </div>
-            <canvas ref={node => (this.node = node)} />
+            <div>
+              {" "}
+              <canvas id="theChart" ref={node => (this.node = node)} />
+            </div>
           </div>
         </div>
       </div>
