@@ -49,6 +49,11 @@ select {
   background-color: rgba(0, 102, 255, 0.774);
 }
 
+#homeTitle {
+  font-size: 125px;
+  padding-bottom: 15px;
+}
+
 #cal1 {
   float: left;
   width: 25%;

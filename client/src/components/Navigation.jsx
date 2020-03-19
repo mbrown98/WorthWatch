@@ -6,6 +6,9 @@ const Navigation = () => {
   return (
     <div>
       <NavLink to="/">Home</NavLink>
+      <NavLink to="/crypto">Crypto</NavLink>
+      <NavLink to="/stocks">Stocks</NavLink>
+
       {/* <NavLink to="/about">About</NavLink>
       <NavLink to="/contact">Contact</NavLink> */}
     </div>

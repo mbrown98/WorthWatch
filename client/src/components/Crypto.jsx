@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Navigation from "./Navigation.jsx";
 
 var Chart = require("chart.js");
 import runtime from "regenerator-runtime";
@@ -91,6 +92,7 @@ export default class Crypto extends React.Component {
   render() {
     return (
       <div>
+        <Navigation />
         <div>
           {" "}
           <section class="hero is-link">

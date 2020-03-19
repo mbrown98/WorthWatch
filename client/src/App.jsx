@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Crypto from "./components/Crypto.jsx";
 import Navigation from "./components/Navigation";
+import Home from "./components/Home";
+import Stocks from "./components/Stocks";
 
 // import Home from "./components/Home";
 // import About from "./components/About";
@@ -14,9 +16,11 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div>
-          <Navigation />
+          {/* <Navigation /> */}
           <Switch>
-            <Route path="/" component={Crypto} />
+            <Route path="/" component={Home} exact />
+            <Route path="/crypto" component={Crypto} />
+            <Route path="/stocks" component={Stocks} />
           </Switch>
         </div>
       </BrowserRouter>
