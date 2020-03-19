@@ -1,7 +1,5 @@
 import React from "react";
 import axios from "axios";
-import runtime from "regenerator-runtime";
-import { Thumbnail } from "react-bootstrap";
 
 export default class OtherCurrencies extends React.Component {
   constructor(props) {
