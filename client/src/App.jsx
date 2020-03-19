@@ -1,11 +1,11 @@
 import React from "react";
 import axios from "axios";
 
-import CurrentPrice from "./components/CurrentPrice.jsx";
-import CurrencySelect from "./components/CurrencySelect.jsx";
 var Chart = require("chart.js");
 import runtime from "regenerator-runtime";
 import OtherCurrencies from "./components/OtherCurrencies";
+
+import DatePicker from "./components/DatePicker.jsx";
 
 class App extends React.Component {
   constructor(props) {
@@ -20,52 +20,57 @@ class App extends React.Component {
     };
 
     this.getCurrentPrices = this.getCurrentPrices.bind(this);
-    this.getPastPrices = this.getPastPrices.bind(this);
+    // this.getPastPrices = this.getPastPrices.bind(this);
+    this.populateChart = this.populateChart.bind(this);
   }
   componentDidMount() {
     this.getCurrentPrices();
     this.getPastPrices("USD");
-    setInterval(this.getCurrentPrices, 5000);
+    // setInterval(this.getCurrentPrices, 1000);
   }
 
   async getCurrentPrices() {
     try {
       console.log("current prices run");
       const response = await axios.get(
-        "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,LTC,XRP,BCH&tsyms=USD,EUR,GBP"
+        "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,LTC,XRP,BCH&tsyms=USD,EUR,GBP"
       );
+      console.log(response);
 
       this.setState({
-        USD: response.data.BTC.USD,
-        GBP: response.data.BTC.GBP,
-        EUR: response.data.BTC.EUR
+        USD: response.data.DISPLAY.BTC.USD.PRICE,
+        GBP: response.data.DISPLAY.BTC.GBP.PRICE,
+        EUR: response.data.DISPLAY.BTC.EUR.PRICE
       });
     } catch (e) {
       console.log(e);
     }
   }
 
-  getPastPrices(val) {
-    this.setState({ currentCurrency: val });
+  populateChart(val1, val2, curr) {
+    console.log("values", val1, val2);
     axios
       .get(
-        `https://api.coindesk.com/v1/bpi/historical/close.json?currency=${val}`
+        `https://api.nomics.com/v1/currencies/sparkline?key=demo-26240835858194712a4f8cc0dc635c7a&ids=${curr}&start=${val1}T00%3A00%3A00Z&end=${val2}T00%3A00%3A00Z`
       )
       .then(response => {
         let obj = {};
-        obj.prices = Object.values(response.data.bpi);
-        obj.dates = Object.keys(response.data.bpi);
+        obj.prices = response.data[0].prices;
+
+        obj.dates = response.data[0].timestamps.map(date => date.slice(0, 10));
+
+        console.log(obj);
         return obj;
       })
       .then(obj => {
         const node = this.node;
-        var myChart = new Chart(node, {
+        var newChart = new Chart(node, {
           type: "line",
           data: {
             labels: obj.dates,
             datasets: [
               {
-                label: "Bitcoin Price",
+                label: curr + " Price",
                 data: obj.prices,
                 backgroundColor: [
                   "rgba(5, 120, 133333, 0.4)",
@@ -77,6 +82,10 @@ class App extends React.Component {
           }
         });
       });
+  }
+
+  getPastPrices(val) {
+    this.setState({ currentCurrency: val });
   }
 
   render() {
@@ -93,32 +102,30 @@ class App extends React.Component {
             </div>
           </section>
         </div>
-        <OtherCurrencies />
-        <div>
-          <h1 style={{ fontSize: "20px" }}>{"Select Currency"}</h1>
-        </div>
 
-        <div id="currencyWrapper">
+        <div id="topHalf">
           {" "}
-          <div id="first">
+          <div id="notChart" className="box">
             {" "}
-            <CurrencySelect setCurrency={this.getPastPrices} />
+            <div id="currencyWrapper">
+              <h1 class="title">Currency Converter</h1> <div id="first"> </div>
+            </div>
+            <OtherCurrencies currentCurrency={this.state.currentCurrency} />
           </div>
-          <div id="second">
+          <div id="chart" className="box">
             {" "}
-            <CurrentPrice
-              USD={this.state.USD}
-              GBP={this.state.GBP}
-              EUR={this.state.EUR}
-              currency={this.state.currentCurrency}
-            />
+            <div>
+              {" "}
+              <h1 class="title">Tracker</h1>
+              <DatePicker populateChart={this.populateChart} />
+              {/* <DatesGraph chartSwitcher={this.populateChart} /> */}
+            </div>
+            <div>
+              {" "}
+              <canvas id="theChart" ref={node => (this.node = node)} />
+            </div>
           </div>
         </div>
-
-        <canvas
-          style={{ width: 400, height: 120 }}
-          ref={node => (this.node = node)}
-        />
       </div>
     );
   }
