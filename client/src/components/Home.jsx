@@ -57,15 +57,18 @@ export default class Home extends React.Component {
           <nav class="tabs">
             <div class="container">
               <ul>
-                <li class="is-active">
-                  <a>Home</a>
-                </li>
-                <li>
-                  <a>CyrptoTracker</a>
-                </li>
-                <li>
-                  <a>StockTracker</a>
-                </li>
+                <Link to="/" class="navbar-item is-active">
+                  Home
+                </Link>
+                <Link to="/crypto" class="navbar-item is-active">
+                  CyrptoWatch
+                </Link>
+                <Link to="/stocks" class="navbar-item is-active">
+                  StockWatch
+                </Link>
+                <Link to="/watching" class="navbar-item is-active">
+                  Watching
+                </Link>
               </ul>
             </div>
           </nav>
