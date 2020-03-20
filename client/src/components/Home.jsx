@@ -30,10 +30,13 @@ export default class Home extends React.Component {
                     Home
                   </Link>
                   <Link to="/crypto" class="navbar-item is-active">
-                    CyrptoTracker
+                    CyrptoWatch
                   </Link>
                   <Link to="/stocks" class="navbar-item is-active">
-                    StockTracker
+                    StockWatch
+                  </Link>
+                  <Link to="/watching" class="navbar-item is-active">
+                    Watching
                   </Link>
                 </div>
               </div>

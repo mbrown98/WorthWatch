@@ -98,7 +98,7 @@ export default class Crypto extends React.Component {
           <section class="hero is-link">
             <div class="hero-body">
               <div class="container">
-                <h1 class="title">CryptoTracker</h1>
+                <h1 class="title">CryptoWatch</h1>
                 <h2 class="subtitle">Powered by CoinDesk</h2>
               </div>
             </div>

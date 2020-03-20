@@ -5,22 +5,18 @@ import Crypto from "./components/Crypto.jsx";
 import Navigation from "./components/Navigation";
 import Home from "./components/Home";
 import Stocks from "./components/Stocks";
-
-// import Home from "./components/Home";
-// import About from "./components/About";
-// import Contact from "./components/Contact";
-// import Error from "./components/Error";
+import Watching from "./components/Watching";
 
 class App extends Component {
   render() {
     return (
       <BrowserRouter>
         <div>
-          {/* <Navigation /> */}
           <Switch>
             <Route path="/" component={Home} exact />
             <Route path="/crypto" component={Crypto} />
             <Route path="/stocks" component={Stocks} />
+            <Route path="/watching" component={Watching} />
           </Switch>
         </div>
       </BrowserRouter>

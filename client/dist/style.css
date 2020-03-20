@@ -49,6 +49,17 @@ select {
   background-color: rgba(0, 102, 255, 0.774);
 }
 
+#navBar {
+  display: flex;
+  width: 100%;
+}
+
+.navPiece {
+  margin-right: 10px;
+  font-size: 22px;
+  float: right;
+}
+
 #homeTitle {
   font-size: 125px;
   padding-bottom: 15px;
