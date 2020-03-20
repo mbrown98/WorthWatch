@@ -8,7 +8,7 @@ const router = require("./routes");
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 
-const port = 3001;
+const port = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
