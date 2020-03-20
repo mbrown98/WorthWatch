@@ -1,13 +1,18 @@
 {
   "name": "crypto-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "node app",
   "main": "index.js",
   "scripts": {
+    "start": "node app.js",
     "clean": "rm dist/bundle.js",
     "build-dev": "webpack -d --mode development --watch",
     "build-prod": "webpack -p --mode production",
-    "start": "nodemon server/index.js"
+    "dev-start": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
   },
   "keywords": [],
   "author": "Matt",
